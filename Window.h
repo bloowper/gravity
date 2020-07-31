@@ -2,25 +2,25 @@
 #include <string>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include "eventUnit.h"
+
 
 class Window{
 public:
 	Window();
 	Window(const std::string& title, const sf::Vector2u& size);
 	~Window();
-
 	void BeginDraw();
 	void EndDraw();
-
 	void Update();
-
 	bool IsDone();
 	bool IsFullscreen();
 	sf::Vector2u GetWindowSize();
-
 	void ToggleFullscreen();
-
 	void Draw(sf::Drawable& l_drawable);
+    eventUnit& getEventUnit();
+    void resetEventUnit();
+
 private:
 	void Setup(const std::string title, const sf::Vector2u& size);
 	void Create();
@@ -31,4 +31,5 @@ private:
 	std::string m_windowTitle;
 	bool m_isDone;
 	bool m_isFullscreen;
+	eventUnit EventUnit;
 };

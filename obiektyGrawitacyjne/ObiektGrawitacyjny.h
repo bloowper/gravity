@@ -34,7 +34,7 @@ class ObiektGrawitacyjny: public sf::CircleShape
         void increseCord(pair<double,double>& deltaCord);
         vector<double> returnVersor(ObiektGrawitacyjny const & obg);
         pair<double,double> returnVersorAsPair(ObiektGrawitacyjny const & obg);
-        pair<double,double> returnCord();
+        pair<double,double> getCord();
         pair<double,double> returnForce(void);
         pair<double,double> returnVelocity(void);
         double returnMass();

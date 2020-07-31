@@ -15,6 +15,8 @@ void resetRepresentationOfCombination(vector<int> &combination)
 }
 
 pair<int, int> returnSubscriptsForPairInVector(vector<int> &combination) {
+    if(combination.size()==2)
+        return {0,1};
     int to_return[2];
     int i=0;
     for(auto j=0;j<combination.size();j++)

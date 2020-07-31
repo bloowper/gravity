@@ -18,13 +18,16 @@ public:
 	sf::Time GetElapsed();
 	void RestartClock();
 private:
-	Window m_window;
+	void resetBoolRepresentationOfCombination();
+
+    Window m_window;
 	sf::Clock m_clock;
 	sf::Time m_elapsed;
+    bool pause;
 
     vector<ObiektGrawitacyjny> obiektyGrawitacyjne{};
     map<pair<pair<double,double>,pair<double,double>>,pair<double,double>> versorMap;
-    vector<int> boolRepresentationOfCombination;
-
+    vector<int> boolRepresentationOfCombination;//vector who contains combination of 2 element from vector<ObiektyGrawitacyjne> obiektyGrawitacyjne
+    vector<pair<ObiektGrawitacyjny,bool>> nowyObiektGrawitacyjny{};// there was an error when pair<bool,ObiektGrawitacyjny> idk why. so using vector with only one element
 
 };

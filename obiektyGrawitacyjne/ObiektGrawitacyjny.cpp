@@ -35,7 +35,7 @@ vector<double> ObiektGrawitacyjny::returnVersor(const ObiektGrawitacyjny &obg)
     return std::move(vect);
 }
 
-pair<double, double> ObiektGrawitacyjny::returnCord() {
+pair<double, double> ObiektGrawitacyjny::getCord() {
     return pair<double, double>(
             cord[(int)orientation::horizontal],
             cord[(int)orientation::vertical]
@@ -103,7 +103,7 @@ void ObiektGrawitacyjny::setCord(pair<double,double> const& deltaCord)
 {
     cord[0]=deltaCord.first;
     cord[1]=deltaCord.second;
-    move((float)deltaCord.first,(float)deltaCord.second);
+    sf::CircleShape::setPosition(cord[0],cord[1]);
 }
 
 void ObiektGrawitacyjny::increseCord(pair<double, double> &deltaCord)
