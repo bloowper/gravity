@@ -63,10 +63,17 @@ void Game::HandleInput(){
 //mouse rbutton button
     if(eventUnit.mouseRbutton.first)
     {//pressed
-
+        ObiektGrawitacyjny *obj = locate_nearest_gravity_obj();
+        double tolarce_for_click =5;
         if(eventUnit.mouseRbutton.second)
         {//relesed
-
+            if(obj!= nullptr && returnDistanceMouseObj(*obj)<=obj->getRadius()+tolarce_for_click) {
+                {
+                    const vector<ObiektGrawitacyjny>::iterator &iterator = std::find(obiektyGrawitacyjne.begin(),obiektyGrawitacyjne.end(), *obj);
+                    if(iterator!=obiektyGrawitacyjne.end())
+                    obiektyGrawitacyjne.erase(iterator);
+                }
+            }
             eventUnit.resetKey(buttons::mouseRbutton);
         }
     }
@@ -89,11 +96,9 @@ void Game::HandleInput(){
 void Game::Update()
 {
 	m_window.Update();
-
 	if(!pause)
     {
         resetBoolRepresentationOfCombination();
-
 //obliczanie wszystkich versorow miedzy wszystkimi mozliwymi parami obiektow grawitacyjnych
         //chyba zrezygnuje z tej sekcji i bede je obliczac na biezaco
         for (auto i = 0; i < obiektyGrawitacyjne.size(); i++) {
@@ -107,7 +112,8 @@ void Game::Update()
 
 //obliczanie sily pomiedzy wszystkimi parami obiektow, nadawanie im tych sil odzialywan
         if (obiektyGrawitacyjne.size() > 1)
-            do {
+            do
+            {
                 pair<int, int> vectorSubscripts = returnSubscriptsForPairInVector(boolRepresentationOfCombination);
                 double force_ = returnForce(obiektyGrawitacyjne[vectorSubscripts.first],
                                             obiektyGrawitacyjne[vectorSubscripts.second]);
@@ -126,7 +132,8 @@ void Game::Update()
 
 //obliczanie delta vector predkosci i dodawanie ich do aktualnie posiadanych wektorow
 //przesuwanie obiektow na podstawie wektora predkosci
-        for (auto it = obiektyGrawitacyjne.begin(); it != obiektyGrawitacyjne.end(); it++) {
+        for (auto it = obiektyGrawitacyjne.begin(); it != obiektyGrawitacyjne.end(); it++)
+        {
             //obliczanie predkosci
             double deltaVelocityHorizontal = it->returnForce().first * DELTA_TIME_PER_TICK_ / it->returnMass(),
                     deltaVelocityVertical = it->returnForce().second * DELTA_TIME_PER_TICK_ / it->returnMass();
@@ -141,6 +148,7 @@ void Game::Update()
         }
 //scalanie obiektow bedacych odpowiednio blisko
         if (obiektyGrawitacyjne.size() > 1)
+        {
             do {
                 pair<int, int> vectorSubscripts = returnSubscriptsForPairInVector(boolRepresentationOfCombination);
                 double distance = distanceBetween(obiektyGrawitacyjne[vectorSubscripts.first],
@@ -168,33 +176,38 @@ void Game::Update()
                 }
             } while (std::next_permutation(boolRepresentationOfCombination.begin(),
                                            boolRepresentationOfCombination.end()));
-        resetRepresentationOfCombination(boolRepresentationOfCombination);
+            resetRepresentationOfCombination(boolRepresentationOfCombination);
+        }
     }
 //usuwanie obiektow bedacych poza obszarem rysowania
 //bardzo obciazajaca sekcjasjja
 //!!!!!!!!!!!!!double free or corruption (out)
 //w tym fragmencie kodu
-    if(obiektyGrawitacyjne.size()>0)
-    {
-        int n_oj_object_to_delete{0};
-        int granica_przesuniecia_obiektu_poza_ekran = 500;
-        for_each(obiektyGrawitacyjne.begin(), obiektyGrawitacyjne.end(), [&](ObiektGrawitacyjny ob) {
-            if (ob.getCord().first > m_window.GetWindowSize().x + granica_przesuniecia_obiektu_poza_ekran)
-                n_oj_object_to_delete++;
-            else if (ob.getCord().second > m_window.GetWindowSize().y + granica_przesuniecia_obiektu_poza_ekran)
-                n_oj_object_to_delete++;
-        });
-        for (int i = 0; i < n_oj_object_to_delete; i++) {
-            for (auto it = obiektyGrawitacyjne.begin(); it != obiektyGrawitacyjne.end(); it++) {
-                if (it->getCord().first > m_window.GetWindowSize().x + granica_przesuniecia_obiektu_poza_ekran ||
-                    it->getCord().second > m_window.GetWindowSize().y + granica_przesuniecia_obiektu_poza_ekran) {
-                    obiektyGrawitacyjne.erase(it);
-                    break;
-                }
-            }
-        resetBoolRepresentationOfCombination();
-        }
-    }
+//    if(obiektyGrawitacyjne.size()>0)
+//    {
+//        int n_oj_object_to_delete{0};
+//        int granica_przesuniecia_obiektu_poza_ekran = 500;
+//        for_each(obiektyGrawitacyjne.begin(), obiektyGrawitacyjne.end(), [&](ObiektGrawitacyjny ob) {
+//            if (ob.getCord().first > m_window.GetWindowSize().x + granica_przesuniecia_obiektu_poza_ekran)
+//                n_oj_object_to_delete++;
+//            else if (ob.getCord().second > m_window.GetWindowSize().y + granica_przesuniecia_obiektu_poza_ekran)
+//                n_oj_object_to_delete++;
+//        });
+//        for (int i = 0; i < n_oj_object_to_delete; i++)
+//        {
+//            for (auto it = obiektyGrawitacyjne.begin(); it != obiektyGrawitacyjne.end(); it++)
+//            {
+//                if (it->getCord().first > m_window.GetWindowSize().x + granica_przesuniecia_obiektu_poza_ekran ||
+//                    it->getCord().second > m_window.GetWindowSize().y + granica_przesuniecia_obiektu_poza_ekran)
+//                {
+//                    {obiektyGrawitacyjne.erase(it);
+//                    break;}
+//                }
+//            }
+//        }
+//        resetBoolRepresentationOfCombination();
+//    }
+
 }
 
 
@@ -209,6 +222,8 @@ void Game::Render(){
 
     m_window.EndDraw(); // Display.
 }
+
+
 
 
 

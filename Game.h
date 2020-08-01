@@ -20,6 +20,7 @@ public:
 private:
 	void resetBoolRepresentationOfCombination();
     ObiektGrawitacyjny* locate_nearest_gravity_obj();
+    double returnDistanceMouseObj(ObiektGrawitacyjny obj);
 
     Window m_window;
 	sf::Clock m_clock;

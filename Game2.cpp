@@ -6,19 +6,18 @@
 #include <limits>
 void Game::resetBoolRepresentationOfCombination()
 {
-    if(obiektyGrawitacyjne.size()<2)
-        return;
+    if(obiektyGrawitacyjne.size()<2) return;
+    if(obiektyGrawitacyjne.size()==2)
+    {
+     boolRepresentationOfCombination.resize(2);
+     boolRepresentationOfCombination[0]=1;
+     boolRepresentationOfCombination[1]=1;
+    }
     boolRepresentationOfCombination.resize(obiektyGrawitacyjne.size());
-    for(int i=0;i<obiektyGrawitacyjne.size();i++)
-        boolRepresentationOfCombination[i]=0;
-    if(boolRepresentationOfCombination.size()>2){
+    for(auto &obj:boolRepresentationOfCombination) obj=0;
     boolRepresentationOfCombination[boolRepresentationOfCombination.size()-1]=1;
     boolRepresentationOfCombination[boolRepresentationOfCombination.size()-2]=1;
-    }
-    else if(boolRepresentationOfCombination.size()==1)
-    {
-        boolRepresentationOfCombination[0]=1;
-    }
+
 }
 
 ObiektGrawitacyjny *Game::locate_nearest_gravity_obj() {
@@ -43,4 +42,8 @@ ObiektGrawitacyjny *Game::locate_nearest_gravity_obj() {
         }
     }
     return tempory.temp;
+}
+
+double Game::returnDistanceMouseObj(ObiektGrawitacyjny obj) {
+    return distanceBetween(obj,m_window.getEventUnit().mouseCord);
 }
