@@ -91,6 +91,19 @@ void Game::HandleInput(){
             eventUnit.resetKey(buttons::mouseLbutton);
         }
     }
+//mose Wheel
+    if(eventUnit.mouseWheel!=0)
+    {
+        double tolerance_mouse_distance=10;
+        double mass_increase_value=200;
+        ObiektGrawitacyjny *obj = locate_nearest_gravity_obj();
+        if(obj!= nullptr)
+        {
+            if(returnDistanceMouseObj(*obj)<=obj->getRadius()+tolerance_mouse_distance)
+            obj->increeseMass(mass_increase_value*eventUnit.mouseWheel);
+        }
+        m_window.getEventUnit().resetKey(buttons::mouse_Wheel);
+    }
 }
 
 void Game::Update()

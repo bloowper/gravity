@@ -6,6 +6,7 @@
 
 eventUnit::eventUnit()
 {
+    mouseWheel=0;
 
 }
 
@@ -33,8 +34,10 @@ void eventUnit::resetKey(buttons b)
             keyboard_D_button={0,0};
             break;
         }
+        case buttons::mouse_Wheel:
         default:
         {
+            mouseWheel=0;
             break;
         }
 

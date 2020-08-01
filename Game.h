@@ -30,6 +30,6 @@ private:
     vector<ObiektGrawitacyjny> obiektyGrawitacyjne{};
     map<pair<pair<double,double>,pair<double,double>>,pair<double,double>> versorMap;
     vector<int> boolRepresentationOfCombination;//vector who contains combination of 2 element from vector<ObiektyGrawitacyjne> obiektyGrawitacyjne
-    vector<pair<ObiektGrawitacyjny,bool>> nowyObiektGrawitacyjny{};// there was an error when pair<bool,ObiektGrawitacyjny> idk why. so using vector with only one element
+    vector<pair<ObiektGrawitacyjny,bool>> nowyObiektGrawitacyjny{};// there was an error mwhen pair<bool,ObiektGrawitacyjny> idk why. so using vector with only one element
 
 };

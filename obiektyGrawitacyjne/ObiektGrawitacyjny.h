@@ -18,8 +18,8 @@ enum orient{
 };
 
 static const  double DELTA_TIME_PER_TICK_ = 0.1;
-    static const double MINIMAL_DISTANCE_TO_MERGE =10;
-
+static const double MINIMAL_DISTANCE_TO_MERGE =10;
+static const int COEFFICIENT_MASS_SIZE = 500;
 class ObiektGrawitacyjny: public sf::CircleShape
 {
     public:
@@ -31,6 +31,7 @@ class ObiektGrawitacyjny: public sf::CircleShape
         void setVelocity(pair<double,double> v);
         void setCord(pair<double,double> const& deltaCord);
         void setMass(double mass_);
+        void increeseMass(double mass);
         void increseCord(pair<double,double>& deltaCord);
         vector<double> returnVersor(ObiektGrawitacyjny const & obg);
         pair<double,double> returnVersorAsPair(ObiektGrawitacyjny const & obg);

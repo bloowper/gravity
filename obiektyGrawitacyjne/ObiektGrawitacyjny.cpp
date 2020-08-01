@@ -16,11 +16,18 @@ ObiektGrawitacyjny::ObiektGrawitacyjny(double x, double y, double weight_)
     cord[(int)orientation::horizontal]=x;
     cord[(int)orientation::vertical]=y;
 
-    sf::CircleShape::setRadius(weight_/(125*M_PI));
+    sf::CircleShape::setRadius(weight_/COEFFICIENT_MASS_SIZE);
 //    sf::CircleShape::setRadius(10);
     sf::CircleShape::setPosition(x,y);
     sf::CircleShape::setFillColor(sf::Color::Red);
     sf::CircleShape::setOrigin({getRadius(),getRadius()});
+}
+
+ObiektGrawitacyjny::ObiektGrawitacyjny(double x, double y, double weight_, pair<double, double> velocity)
+:ObiektGrawitacyjny(x,y,weight_)
+{
+    this->velocity[0]=velocity.first;
+    this->velocity[1]=velocity.second;
 }
 
 vector<double> ObiektGrawitacyjny::returnVersor(const ObiektGrawitacyjny &obg)
@@ -123,12 +130,7 @@ void ObiektGrawitacyjny::setMass(double mass_)
     mass = mass_;
 }
 
-ObiektGrawitacyjny::ObiektGrawitacyjny(double x, double y, double weight_, pair<double, double> velocity)
-:ObiektGrawitacyjny(x,y,weight_)
-{
-    this->velocity[0]=velocity.first;
-    this->velocity[1]=velocity.second;
-}
+
 
 bool ObiektGrawitacyjny::operator==(const ObiektGrawitacyjny &ob) const {
     return this->mass == ob.mass &&
@@ -141,6 +143,12 @@ double distanceBetween(ObiektGrawitacyjny &ob1, pair<double, double> mose_positi
     double d1 = ob1.getCord().first - mose_position.first;
     double d2= ob1.getCord().second - mose_position.second;
     return sqrt(pow(d1,2)+pow(d2,2));
+}
+
+void ObiektGrawitacyjny::increeseMass(double mass)
+{
+    this->mass+=mass;
+    setRadius(this->mass/COEFFICIENT_MASS_SIZE);
 }
 
 double countMinimalDistanceToMarge(const ObiektGrawitacyjny &a, const ObiektGrawitacyjny &b) {

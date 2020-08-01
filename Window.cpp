@@ -85,7 +85,11 @@ void Window::Update() {
             EventUnit.isMouseRbutton = false;
         }
         //////
-
+        //wheel
+        if((event.type == sf::Event::MouseWheelMoved))
+        {
+            EventUnit.mouseWheel = event.mouseWheel.delta;
+        }
 
     }
 
