@@ -19,6 +19,7 @@ public:
 	void RestartClock();
 private:
 	void resetBoolRepresentationOfCombination();
+    ObiektGrawitacyjny* locate_nearest_gravity_obj();
 
     Window m_window;
 	sf::Clock m_clock;

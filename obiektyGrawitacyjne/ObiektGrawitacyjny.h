@@ -39,6 +39,7 @@ class ObiektGrawitacyjny: public sf::CircleShape
         pair<double,double> returnVelocity(void);
         double returnMass();
         friend double distanceBetween(ObiektGrawitacyjny  & ob1,ObiektGrawitacyjny  & ob2);
+        friend double distanceBetween(ObiektGrawitacyjny &ob1,pair<double,double> mose_position);
         friend double returnForce(ObiektGrawitacyjny &a,ObiektGrawitacyjny &b);
 //        friend double countMinimalDistanceToMarge(ObiektGrawitacyjny const  &a,ObiektGrawitacyjny const &b);
 

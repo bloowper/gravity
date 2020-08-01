@@ -25,7 +25,12 @@ void eventUnit::resetKey(buttons b)
         }
         case buttons::keyboardPbutton:
         {
-            keyboardPbutton = {0,0};
+            keyboard_P_button = {0, 0};
+            break;
+        }
+        case buttons::keyboard_D_button:
+        {
+            keyboard_D_button={0,0};
             break;
         }
         default:

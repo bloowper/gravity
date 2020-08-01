@@ -5,7 +5,6 @@
 #include <iostream>
 #include "ObiektGrawitacyjny.h"
 
-
 ObiektGrawitacyjny::ObiektGrawitacyjny(double x, double y, double weight_)
 :sf::CircleShape(),force(2),velocity(2),cord(2)
 {
@@ -17,7 +16,7 @@ ObiektGrawitacyjny::ObiektGrawitacyjny(double x, double y, double weight_)
     cord[(int)orientation::horizontal]=x;
     cord[(int)orientation::vertical]=y;
 
-    sf::CircleShape::setRadius(weight_/(100*M_PI));
+    sf::CircleShape::setRadius(weight_/(125*M_PI));
 //    sf::CircleShape::setRadius(10);
     sf::CircleShape::setPosition(x,y);
     sf::CircleShape::setFillColor(sf::Color::Red);
@@ -135,6 +134,13 @@ bool ObiektGrawitacyjny::operator==(const ObiektGrawitacyjny &ob) const {
     return this->mass == ob.mass &&
            this->cord[0] == ob.cord[0] &&
            this->cord[1] == ob.cord[1];
+}
+
+double distanceBetween(ObiektGrawitacyjny &ob1, pair<double, double> mose_position)
+{
+    double d1 = ob1.getCord().first - mose_position.first;
+    double d2= ob1.getCord().second - mose_position.second;
+    return sqrt(pow(d1,2)+pow(d2,2));
 }
 
 double countMinimalDistanceToMarge(const ObiektGrawitacyjny &a, const ObiektGrawitacyjny &b) {

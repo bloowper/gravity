@@ -51,10 +51,18 @@ void Window::Update() {
         //////
         //keyboard P
         if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::P)) {
-            EventUnit.keyboardPbutton.first = 1;
+            EventUnit.keyboard_P_button.first = 1;
         }
         if ((event.type == sf::Event::KeyReleased) && (event.key.code == sf::Keyboard::P)) {
-            EventUnit.keyboardPbutton.second = 1;
+            EventUnit.keyboard_P_button.second = 1;
+        }
+        //////
+        //keyboard D
+        if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::D)) {
+        EventUnit.keyboard_D_button.first = 1;
+        }
+        if ((event.type == sf::Event::KeyReleased) && (event.key.code == sf::Keyboard::D)) {
+            EventUnit.keyboard_D_button.second = 1;
         }
         //////
         //mose L button
@@ -100,5 +108,5 @@ void Window::resetEventUnit()
     EventUnit.mouseRbutton={0,0};
     EventUnit.isMouseRbutton=0;
     //keyboard P button
-    EventUnit.keyboardPbutton={0,0};
+    EventUnit.keyboard_P_button={0, 0};
 }

@@ -44,10 +44,21 @@ void Game::HandleInput(){
 	// Input handling.
     eventUnit &eventUnit=m_window.getEventUnit();
 //P button
-    if(eventUnit.keyboardPbutton == pair<bool,bool>{1,1})
+    if(eventUnit.keyboard_P_button == pair<bool,bool>{1, 1})
     {
         pause = (!pause);
         eventUnit.resetKey(buttons::keyboardPbutton);
+    }
+//keyboard D button
+    if(eventUnit.keyboard_D_button.first)
+    {//D pressed
+
+        if(eventUnit.keyboard_D_button.second)
+        {//D relesed
+            obiektyGrawitacyjne.clear();
+            Game::resetBoolRepresentationOfCombination();
+            eventUnit.resetKey(buttons::keyboard_D_button);
+        }
     }
 //mouse rbutton button
     if(eventUnit.mouseRbutton.first)
@@ -55,6 +66,7 @@ void Game::HandleInput(){
 
         if(eventUnit.mouseRbutton.second)
         {//relesed
+
             eventUnit.resetKey(buttons::mouseRbutton);
         }
     }
@@ -74,7 +86,8 @@ void Game::HandleInput(){
     }
 }
 
-void Game::Update(){
+void Game::Update()
+{
 	m_window.Update();
 
 	if(!pause)
@@ -193,22 +206,10 @@ void Game::Render(){
 
     if(nowyObiektGrawitacyjny[0].second)
         m_window.Draw(nowyObiektGrawitacyjny[0].first);
-	m_window.EndDraw(); // Display.
+
+    m_window.EndDraw(); // Display.
 }
 
-void Game::resetBoolRepresentationOfCombination()
-{
-    if(obiektyGrawitacyjne.size()<2)
-        return;
-    boolRepresentationOfCombination.resize(obiektyGrawitacyjne.size());
-    for(int i=0;i<obiektyGrawitacyjne.size();i++)
-        boolRepresentationOfCombination[i]=0;
-    if(boolRepresentationOfCombination.size()>2){
-    boolRepresentationOfCombination[boolRepresentationOfCombination.size()-1]=1;
-    boolRepresentationOfCombination[boolRepresentationOfCombination.size()-2]=1;
-    }
-    else if(boolRepresentationOfCombination.size()==1)
-    {
-        boolRepresentationOfCombination[0]=1;
-    }
-}
+
+
+
