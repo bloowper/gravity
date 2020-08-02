@@ -1,25 +1,18 @@
 #include <iostream>
 #include "Game.h"
 #include "ObiektGrawitacyjny.h"
+#include "velocity_vector_shape.h"
+
+#define TOLERANCE_FOR_CLICK 5
+#define DELTA_VELOCITY 0.01
 Game::Game(): m_window("Chapter 2", sf::Vector2u(2000,2000)){
 	RestartClock();
 	srand(time(NULL));
     pause=false;
+    graphic_velocity_vector=true;
 
 	// setting gravity object(start position for some of)
-        obiektyGrawitacyjne.push_back({1000+95,1000,5000+200});
-        obiektyGrawitacyjne[0].setVelocity({0,2});
-        obiektyGrawitacyjne.push_back({1000-95,1000,5000+200});
-        obiektyGrawitacyjne[1].setVelocity({0,-2});
-
-        obiektyGrawitacyjne.push_back({1000+500,1000+500,1500});
-        obiektyGrawitacyjne[2].setVelocity({-1,-1});
-        obiektyGrawitacyjne.push_back({1000-500,1000-500,1500});
-        obiektyGrawitacyjne[3].setVelocity({1,-1});
-        obiektyGrawitacyjne.push_back({1000-500,1000+500,1500});
-        obiektyGrawitacyjne[4].setVelocity({2,-2});
-        obiektyGrawitacyjne.push_back({1000+500,1000-500,1500});
-        obiektyGrawitacyjne[5].setVelocity({-1,-1});
+    setting_the_starting_position_of_the_objects();
 
     //setting representation of combination of 2 gravity object
     if(obiektyGrawitacyjne.size()>=2)
@@ -34,12 +27,14 @@ Game::Game(): m_window("Chapter 2", sf::Vector2u(2000,2000)){
     nowyObiektGrawitacyjny.push_back({ObiektGrawitacyjny{1, 1, 7000}, false});
 }
 
+
 Game::~Game(){ }
 
 sf::Time Game::GetElapsed(){ return m_elapsed; }
 void Game::RestartClock(){ m_elapsed = m_clock.restart(); }
 Window* Game::GetWindow(){ return &m_window; }
 
+//WYMAGANA POPRAWA KODU
 void Game::HandleInput(){
 	// Input handling.
     eventUnit &eventUnit=m_window.getEventUnit();
@@ -60,14 +55,65 @@ void Game::HandleInput(){
             eventUnit.resetKey(buttons::keyboard_D_button);
         }
     }
+//keyboard Up arrow
+    if(eventUnit.keyboard_up.first)
+    {//Up pressed
+        ObiektGrawitacyjny *obj = locate_nearest_gravity_obj();
+        if(obj!= nullptr && returnDistanceMouseObj(*obj)<=obj->getRadius()+TOLERANCE_FOR_CLICK)
+        {
+            obj->increseVelocity({0,-DELTA_VELOCITY});
+        }
+        if(eventUnit.keyboard_up.second)
+        {//up relessed
+            eventUnit.resetKey(buttons::keyboard_up);
+        }
+    }
+//keyboard down arrow
+    if(eventUnit.keyboard_down.first)
+    {// pressed
+        ObiektGrawitacyjny *obj = locate_nearest_gravity_obj();
+        if(obj!= nullptr && returnDistanceMouseObj(*obj)<=obj->getRadius()+TOLERANCE_FOR_CLICK)
+        {
+            obj->increseVelocity({0,DELTA_VELOCITY});
+        }
+        if(eventUnit.keyboard_down.second)
+        {//relessed
+            eventUnit.resetKey(buttons::keyboard_down);
+        }
+    }
+//keyboard left arrow
+    if(eventUnit.keyboard_left.first)
+    {// pressed
+        ObiektGrawitacyjny *obj = locate_nearest_gravity_obj();
+        if(obj!= nullptr && returnDistanceMouseObj(*obj)<=obj->getRadius()+TOLERANCE_FOR_CLICK)
+        {
+            obj->increseVelocity({-DELTA_VELOCITY,0});
+        }
+        if(eventUnit.keyboard_left.second)
+        {//relessed
+            eventUnit.resetKey(buttons::keyboard_left);
+        }
+    }
+//keyboard right arrow
+    if(eventUnit.keyboard_right.first)
+    {// pressed
+        ObiektGrawitacyjny *obj = locate_nearest_gravity_obj();
+        if(obj!= nullptr && returnDistanceMouseObj(*obj)<=obj->getRadius()+TOLERANCE_FOR_CLICK)
+        {
+            obj->increseVelocity({DELTA_VELOCITY,0});
+        }
+        if(eventUnit.keyboard_right.second)
+        {//relessed
+            eventUnit.resetKey(buttons::keyboard_right);
+        }
+    }
 //mouse rbutton button
     if(eventUnit.mouseRbutton.first)
     {//pressed
         ObiektGrawitacyjny *obj = locate_nearest_gravity_obj();
-        double tolarce_for_click =5;
         if(eventUnit.mouseRbutton.second)
         {//relesed
-            if(obj!= nullptr && returnDistanceMouseObj(*obj)<=obj->getRadius()+tolarce_for_click) {
+            if(obj!= nullptr && returnDistanceMouseObj(*obj)<=obj->getRadius()+TOLERANCE_FOR_CLICK) {
                 {
                     const vector<ObiektGrawitacyjny>::iterator &iterator = std::find(obiektyGrawitacyjne.begin(),obiektyGrawitacyjne.end(), *obj);
                     if(iterator!=obiektyGrawitacyjne.end())
@@ -229,10 +275,16 @@ void Game::Render(){
 
     for(auto &obj:obiektyGrawitacyjne)
         m_window.Draw(obj);
-
+    //new gravity object
     if(nowyObiektGrawitacyjny[0].second)
         m_window.Draw(nowyObiektGrawitacyjny[0].first);
-
+    //graphic representation of velocity vector
+    if(graphic_velocity_vector)
+    for(auto obj:obiektyGrawitacyjne)
+    {
+        velocity_vector_shape t{obj};
+        m_window.Draw(t);
+    }
     m_window.EndDraw(); // Display.
 }
 

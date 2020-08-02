@@ -21,7 +21,8 @@ static const  double DELTA_TIME_PER_TICK_ = 0.1;
 static const double MINIMAL_DISTANCE_TO_MERGE =10;
 static const int COEFFICIENT_MASS_SIZE = 500;
 class ObiektGrawitacyjny: public sf::CircleShape
-{
+{;
+        friend class velocity_vector_shape;
     public:
         ObiektGrawitacyjny(double x,double y,double weight_);
         ObiektGrawitacyjny(double x,double y,double weight_,pair<double,double> velocity);
@@ -42,7 +43,6 @@ class ObiektGrawitacyjny: public sf::CircleShape
         friend double distanceBetween(ObiektGrawitacyjny  & ob1,ObiektGrawitacyjny  & ob2);
         friend double distanceBetween(ObiektGrawitacyjny &ob1,pair<double,double> mose_position);
         friend double returnForce(ObiektGrawitacyjny &a,ObiektGrawitacyjny &b);
-//        friend double countMinimalDistanceToMarge(ObiektGrawitacyjny const  &a,ObiektGrawitacyjny const &b);
 
     private:
         double mass;

@@ -47,3 +47,19 @@ ObiektGrawitacyjny *Game::locate_nearest_gravity_obj() {
 double Game::returnDistanceMouseObj(ObiektGrawitacyjny obj) {
     return distanceBetween(obj,m_window.getEventUnit().mouseCord);
 }
+
+void Game::setting_the_starting_position_of_the_objects() {
+    obiektyGrawitacyjne.push_back({1000 + 95, 1000, 5000 + 200});
+    obiektyGrawitacyjne[0].setVelocity({0, 2});
+    obiektyGrawitacyjne.push_back({1000 - 95, 1000, 5000 + 200});
+    obiektyGrawitacyjne[1].setVelocity({0, -2});
+
+    obiektyGrawitacyjne.push_back({1000 + 500, 1000 + 500, 1500});
+    obiektyGrawitacyjne[2].setVelocity({-1, -1});
+    obiektyGrawitacyjne.push_back({1000 - 500, 1000 - 500, 1500});
+    obiektyGrawitacyjne[3].setVelocity({1, -1});
+    obiektyGrawitacyjne.push_back({1000 - 500, 1000 + 500, 1500});
+    obiektyGrawitacyjne[4].setVelocity({2, -2});
+    obiektyGrawitacyjne.push_back({1000 + 500, 1000 - 500, 1500});
+    obiektyGrawitacyjne[5].setVelocity({-1, -1});
+}

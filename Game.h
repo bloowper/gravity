@@ -19,6 +19,7 @@ public:
 	void RestartClock();
 private:
 	void resetBoolRepresentationOfCombination();
+    void setting_the_starting_position_of_the_objects();
     ObiektGrawitacyjny* locate_nearest_gravity_obj();
     double returnDistanceMouseObj(ObiektGrawitacyjny obj);
 
@@ -26,6 +27,7 @@ private:
 	sf::Clock m_clock;
 	sf::Time m_elapsed;
     bool pause;
+    bool graphic_velocity_vector;
 
     vector<ObiektGrawitacyjny> obiektyGrawitacyjne{};
     map<pair<pair<double,double>,pair<double,double>>,pair<double,double>> versorMap;

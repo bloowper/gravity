@@ -8,6 +8,7 @@
 
 enum buttons{
     mouseLbutton,mouseRbutton,keyboardPbutton,keyboard_D_button,mouse_Wheel
+    ,keyboard_up,keyboard_down,keyboard_left,keyboard_right
 };
 
 struct eventUnit
@@ -25,6 +26,10 @@ struct eventUnit
 
         std::pair<bool,bool> keyboard_P_button;
         std::pair<bool,bool> keyboard_D_button;
+        std::pair<bool,bool> keyboard_up;
+        std::pair<bool,bool> keyboard_down;
+        std::pair<bool,bool> keyboard_left;
+        std::pair<bool,bool> keyboard_right;
 
         //mose position
         std::pair<double,double> mouseCord;

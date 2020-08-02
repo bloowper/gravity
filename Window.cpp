@@ -45,6 +45,8 @@ void Window::ToggleFullscreen(){
 
 void Window::Update() {
     sf::Event event;
+    //POTRZEBNE PRZEPISANIE OD NOWA NA CZYSTO
+    //POPRAWIC!
     while (m_window.pollEvent(event)) {
         //exit control
         if (event.type == sf::Event::Closed) { m_isDone = true; }
@@ -63,6 +65,38 @@ void Window::Update() {
         }
         if ((event.type == sf::Event::KeyReleased) && (event.key.code == sf::Keyboard::D)) {
             EventUnit.keyboard_D_button.second = 1;
+        }
+        //////
+        //keyboard up arrow
+        if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Up)) {
+            EventUnit.keyboard_up.first = 1;
+        }
+        if ((event.type == sf::Event::KeyReleased) && (event.key.code == sf::Keyboard::Up)) {
+            EventUnit.keyboard_up.second = 1;
+        }
+        /////
+        //keyboard down arrow
+        if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Down)) {
+        EventUnit.keyboard_down.first = 1;
+        }
+        if ((event.type == sf::Event::KeyReleased) && (event.key.code == sf::Keyboard::Down)) {
+            EventUnit.keyboard_down.second = 1;
+        }
+        //////
+        //keyboard left arrow
+        if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Left)) {
+        EventUnit.keyboard_left.first = 1;
+        }
+        if ((event.type == sf::Event::KeyReleased) && (event.key.code == sf::Keyboard::Left)) {
+            EventUnit.keyboard_left.second = 1;
+        }
+        //////
+        //keyboard rigth arrow
+        if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Right)) {
+        EventUnit.keyboard_right.first = 1;
+        }
+        if ((event.type == sf::Event::KeyReleased) && (event.key.code == sf::Keyboard::Right)) {
+            EventUnit.keyboard_right.second = 1;
         }
         //////
         //mose L button

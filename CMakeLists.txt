@@ -3,7 +3,7 @@ project(gravity)
 
 set(CMAKE_CXX_STANDARD 17)
 include_directories(obiektyGrawitacyjne keyEventHandling)
-add_executable(gravity Game.cpp Game.h Window.h Main.cpp Window.cpp Window.h obiektyGrawitacyjne/ObiektGrawitacyjny.h obiektyGrawitacyjne/ObiektGrawitacyjny.cpp obiektyGrawitacyjne/someMethods.cpp obiektyGrawitacyjne/someMethods.h keyEventHandling/eventUnit.cpp keyEventHandling/eventUnit.h Game2.cpp)
+add_executable(gravity Game.cpp Game.h Window.h Main.cpp Window.cpp Window.h obiektyGrawitacyjne/ObiektGrawitacyjny.h obiektyGrawitacyjne/ObiektGrawitacyjny.cpp someMethods.cpp someMethods.h keyEventHandling/eventUnit.cpp keyEventHandling/eventUnit.h Game2.cpp obiektyGrawitacyjne/velocity_vector_shape.cpp obiektyGrawitacyjne/velocity_vector_shape.h)
 
 # Detect and add SFML
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
