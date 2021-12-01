@@ -1,4 +1,5 @@
 # simple_gravity_model
+old deprecated project
 ## Key events ##
 * P pause
 * D delete all objects
